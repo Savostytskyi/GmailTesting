@@ -8,6 +8,7 @@ import ru.yandex.qatools.htmlelements.element.Button;
 import ru.yandex.qatools.htmlelements.element.HtmlElement;
 import ru.yandex.qatools.htmlelements.element.TextInput;
 import ru.yandex.qatools.htmlelements.loader.decorator.HtmlElementDecorator;
+
 import static core.property.PropertyReader.getProperty;
 
 public class GmailLoginPage extends HtmlElement {
@@ -24,6 +25,10 @@ public class GmailLoginPage extends HtmlElement {
     public GmailLoginPage(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(new HtmlElementDecorator(driver), this);
+    }
+
+    public WebDriver getDriver() {
+        return driver;
     }
 
     @Name("Login input field")

@@ -15,9 +15,11 @@ public class BaseTest {
 
     protected GmailLoginPage loginPage;
     protected GmailInboxPage inboxPage;
+    protected GmailThemesPage themesPage;
 
     protected GmailLoginHelper loginHelper;
     protected GmailInboxHelper inboxHelper;
+    protected GmailThemesHelper themesHelper;
 
     @BeforeMethod
     protected void setupBeforeSuite() {

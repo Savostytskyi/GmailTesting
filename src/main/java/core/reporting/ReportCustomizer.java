@@ -21,9 +21,7 @@ public class ReportCustomizer {
         String failureImageFileName = "sample1"+".png";
         String userDirector = System.getProperty("user.dir") + "/";
         Reporter.log("<tr><td><a href=\""+ userDirector + failureImageFileName +"\"><img src=\"file:///" + userDirector+ failureImageFileName + "\" alt=\"\""+ "height='120' width='120'/></td></tr> ");
-
     }
-
 
     public void catchExceptions(ITestResult result, WebDriver driver) {
         BufferedWriter writer = null;

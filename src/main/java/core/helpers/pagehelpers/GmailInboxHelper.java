@@ -1,14 +1,10 @@
 package core.helpers.pagehelpers;
 
-import org.openqa.selenium.Alert;
+import core.helpers.generalhelpers.VerifyHelper;
+import core.helpers.generalhelpers.WaitHelper;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
 import pages.GmailInboxPage;
-import pages.GmailLoginPage;
-
-import static core.helpers.generalhelpers.WaitHelper.alertWaiter;
-import static core.helpers.generalhelpers.WaitHelper.waitForElementIsClickable;
 
 /**
  * Created by Savostytskyi Anton on 13.06.2015.
@@ -21,21 +17,38 @@ public class GmailInboxHelper {
         this.driver = driver;
     }
 
-    public GmailInboxHelper createAndSendNewLetter(GmailInboxPage inboxPage, String letter) {
+    public GmailInboxHelper createAndSendNewLetter(GmailInboxPage inboxPage, String letter) throws InterruptedException {
         inboxPage.createNewLetter(letter);
+        Thread.sleep(3000);
         return new GmailInboxHelper(driver);
     }
 
     public GmailLoginHelper logOutFromMail(GmailInboxPage inboxPage){
         inboxPage.logOutFromMail();
-        inboxPage.alertHandler();
+      //  inboxPage.alertHandler();
         return new GmailLoginHelper(driver);
     }
 
     public GmailInboxHelper markLetterAsASpam(GmailInboxPage inboxPage, String letter){
         inboxPage.findLetterWithCorrespondingTopic(letter);
         inboxPage.markLetter();
+        inboxPage.suspeciousButtonHendler();
         return new GmailInboxHelper(driver);
     }
 
+    public GmailInboxHelper dragLetterToStarred(GmailInboxPage inboxPage, String letter){
+        inboxPage.dragLetterWithCorrespondingTopic(letter);
+        return new GmailInboxHelper(driver);
+    }
+
+    public GmailInboxHelper checkThatLetterPresentInStarred(GmailInboxPage inboxPage, String letter){
+        WaitHelper.waitForElementLocated(inboxPage.findLetterInStarred(letter), driver);
+        Assert.assertTrue(VerifyHelper.isElementPresent(inboxPage.findLetterInStarred(letter), driver));
+        return new GmailInboxHelper(driver);
+    }
+
+    public GmailThemesHelper navigateToThemesPage(GmailInboxPage inboxPage){
+        inboxPage.goToThemes();
+        return new GmailThemesHelper(driver);
+    }
 }

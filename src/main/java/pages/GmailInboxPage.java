@@ -1,15 +1,20 @@
 package pages;
 
+import core.helpers.generalhelpers.WaitHelper;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import pages.components.LetterComponent;
 import ru.yandex.qatools.htmlelements.annotations.Name;
 import ru.yandex.qatools.htmlelements.element.Button;
+import ru.yandex.qatools.htmlelements.element.Link;
 import ru.yandex.qatools.htmlelements.loader.decorator.HtmlElementDecorator;
 
+import static core.helpers.generalhelpers.VerifyHelper.isElementPresent;
 import static core.helpers.generalhelpers.WaitHelper.alertWaiter;
 import static core.helpers.generalhelpers.WaitHelper.waitForElementLocated;
 import static core.property.PropertyReader.getProperty;
@@ -21,7 +26,11 @@ public class GmailInboxPage {
     public final String CREATE_LETTER_BUTTON = "(//div[@role='button'])[6]";
     public final String POPUP_MENU = "(//a[@aria-haspopup='true'])[3]";
     public final String EXIT_BUTTON = "//div[2]/div[3]/div[2]/a";
-    public final String TO_SPAM_BUTTON = "(//div[2]/div[1]/div/div[2]/div[2])[1]";
+    public final String TO_SPAM_BUTTON = "(//div[2]/div[1]/div/div[2]/div[2]/div/div)[1]";
+    public final String STARRED_LINK = "(//div[@id]/div/div[1]/span/a)[2]";
+    public final String SUSPECIOUS_LETTER_BUTTON = "//div[3]/button[1]";
+   // public final String CHANGE_THEME_BUTTON = "(//span[@role='checkbox']/following-sibling::div)[5]";
+   public final String CHANGE_THEME_BUTTON = "//span[text()='Выберите тему']";
 
     private LetterComponent letterComponent;
 
@@ -46,6 +55,18 @@ public class GmailInboxPage {
     @FindBy(xpath = TO_SPAM_BUTTON)
     private Button toSpamButton;
 
+    @Name("Starred menu item")
+    @FindBy(xpath = STARRED_LINK)
+    private Link starredLink;
+
+    @Name("Suspicious letter button")
+    @FindBy(xpath = SUSPECIOUS_LETTER_BUTTON)
+    private Button suspiciousButton;
+
+    @Name("Themes button")
+    @FindBy(xpath = CHANGE_THEME_BUTTON)
+    private Button themesButton;
+
     public Button getPopupMenu() {
         return popupMenu;
     }
@@ -62,9 +83,25 @@ public class GmailInboxPage {
         return toSpamButton;
     }
 
+    public Link getStarredLink() {
+        return starredLink;
+    }
+
+    public Button getThemesButton() {
+        return themesButton;
+    }
+
+    public Button getSuspiciousButton() {
+        return suspiciousButton;
+    }
+
     public void createNewLetter(String letter) {
         getNewLetterButton().click();
         letterComponent.fillInField(letter);
+    }
+
+    public void goToThemes() {
+        getThemesButton().click();
     }
 
     public void logOutFromMail(){
@@ -76,7 +113,7 @@ public class GmailInboxPage {
         try {
             alertWaiter(driver);
             driver.switchTo().alert().accept();
-            logOutFromMail();
+          //  logOutFromMail();
         } catch (NoAlertPresentException e) {
             System.out.print("No alert present.");
         }
@@ -87,7 +124,24 @@ public class GmailInboxPage {
         driver.findElement(By.xpath("//span/b[text()='"+ getProperty(letter + ".subject")+"']")).click();
     }
 
+    public void dragLetterWithCorrespondingTopic(String letter) {
+        WebElement element = driver.findElement(By.xpath("//span/b[text()='" + getProperty(letter + ".subject") + "']"));
+        (new Actions(driver)).dragAndDrop(element, getStarredLink().getWrappedElement()).perform();
+    }
+
+    public By findLetterInStarred (String letter) {
+        getStarredLink().click();
+        return By.xpath("//span/b[text()='" + getProperty(letter + ".subject") + "']");
+    }
+
     public void markLetter() {
+        WaitHelper.waitForElementLocated(By.xpath(TO_SPAM_BUTTON), driver);
         getToSpamButton().click();
+    }
+
+    public void suspeciousButtonHendler () {
+        if(isElementPresent(By.xpath(SUSPECIOUS_LETTER_BUTTON), driver)) {
+            getSuspiciousButton().click();
+        }
     }
 }
