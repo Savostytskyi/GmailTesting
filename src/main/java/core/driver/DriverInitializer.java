@@ -7,8 +7,16 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import java.io.File;
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
+
+/**
+ * @author Anton_Savostytskyi on 14.06.2015.
+ * This class responsible for initializing web driver.
+ * Depending on the received parameters initialized object of a driver
+ */
 
 public class DriverInitializer {
+
     private static WebDriver DRIVER;
 
     private static WebDriver getDriver(String browserName) {
@@ -20,6 +28,7 @@ public class DriverInitializer {
         } else if (browserName.equals("ie")) {
             setIEDriver();
         } else setFireFoxDriver();
+        DRIVER.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
         return DRIVER;
     }
 

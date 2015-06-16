@@ -1,15 +1,16 @@
 package core.helpers.pagehelpers;
 
-import core.helpers.generalhelpers.VerifyHelper;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import pages.GmailInboxPage;
-import static core.helpers.generalhelpers.WaitHelper.waitForElementLocated;
+import static core.helpers.generalhelpers.VerifyHelper.isElementPresent;
+import static core.helpers.generalhelpers.WaitHelper.*;
 import static org.testng.Assert.assertTrue;
 
 /**
- * Created by Savostytskyi Anton on 13.06.2015.
+ * @author Anton_Savostytskyi on 13.06.2015.
  */
+
 public class GmailInboxHelper {
 
     private WebDriver driver;
@@ -20,25 +21,35 @@ public class GmailInboxHelper {
 
     public GmailInboxHelper createAndSendNewLetter(GmailInboxPage inboxPage, String letter) throws InterruptedException {
         inboxPage.createNewLetter(letter);
-        Thread.sleep(3000);
+        waitForElementLocated(inboxPage.LETTER_SENT_MESSAGE, driver);
+        return new GmailInboxHelper(driver);
+    }
+
+    public GmailInboxHelper skipAllSettingsWindows(GmailInboxPage inboxPage){
+        if (isElementPresent(By.xpath(inboxPage.CANCEL_BUTTON), driver))
+            inboxPage.getCancelButton().click();
         return new GmailInboxHelper(driver);
     }
 
     public GmailInboxHelper createAndNewLetterWithFile(GmailInboxPage inboxPage, String letter){
         inboxPage.createNewFileLetter(letter);
+        waitForElementLocated(inboxPage.LETTER_SENT_MESSAGE, driver);
         return new GmailInboxHelper(driver);
     }
 
     public GmailLoginHelper logOutFromMail(GmailInboxPage inboxPage){
+        waitForPageLoad(driver);
         inboxPage.logOutFromMail();
-      //  inboxPage.alertHandler();
         return new GmailLoginHelper(driver);
     }
 
     public GmailInboxHelper markLetterAsASpam(GmailInboxPage inboxPage, String letter){
         inboxPage.findLetterWithCorrespondingTopic(letter);
         inboxPage.markLetter();
-        inboxPage.suspeciousButtonHendler();
+        if (isElementPresent(By.xpath(inboxPage.SPAM_CONFIRM_BUTTON), driver)) {
+            inboxPage.getSpanConfirmButton().click();
+        waitForElementNotVisible(By.xpath(inboxPage.SPAM_CONFIRM_BUTTON), driver);
+        }
         return new GmailInboxHelper(driver);
     }
 
@@ -50,12 +61,33 @@ public class GmailInboxHelper {
 
     public GmailInboxHelper checkThatLetterPresentInStarred(GmailInboxPage inboxPage, String letter){
         waitForElementLocated(inboxPage.findLetterInStarred(letter), driver);
-        assertTrue(VerifyHelper.isElementPresent(inboxPage.findLetterInStarred(letter), driver), "Verify that letter present in starred");
+        assertTrue(isElementPresent(inboxPage.findLetterInStarred(letter), driver), "Verify that letter present in starred");
         return new GmailInboxHelper(driver);
     }
+
+    public GmailInboxHelper checkThatLetterContainFile(GmailInboxPage inboxPage, String letter){
+        inboxPage.findLetterWithCorrespondingTopic(letter);
+        assertTrue(isElementPresent(inboxPage.findFileInLetter(letter), driver), "Verify that letter contains file");
+        return new GmailInboxHelper(driver);
+    }
+
 
     public GmailThemesHelper navigateToThemesPage(GmailInboxPage inboxPage){
         inboxPage.goToThemes();
         return new GmailThemesHelper(driver);
     }
+
+    public GmailInboxHelper navigateToSpamFolder(GmailInboxPage inboxPage){
+        inboxPage.getMoreLink().click();
+        waitForElementIsVisible(inboxPage.getSpamFolderButton().getWrappedElement(), driver);
+        inboxPage.getSpamFolderButton().click();
+        return new GmailInboxHelper(driver);
+    }
+
+    public GmailInboxHelper checkThatLetterInSpam(GmailInboxPage inboxPage, String letter){
+        waitForPageLoad(driver);
+        assertTrue(isElementPresent(inboxPage.findLetterInSpamFolder(letter), driver), "Verify that letter present in spam");
+        return new GmailInboxHelper(driver);
+    }
+
 }

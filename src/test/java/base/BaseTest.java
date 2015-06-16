@@ -26,6 +26,7 @@ public class BaseTest {
         driver = DriverInitializer.getWebFactoryInstance("gc");
         driver.manage().window().maximize();
         driver.get(getProperty("url.gmail"));
+
     }
 
     @AfterMethod(alwaysRun = true)

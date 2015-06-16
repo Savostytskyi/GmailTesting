@@ -3,13 +3,11 @@
            tests="1"
            failures="0"
            errors="0"
-           skipped="1"
-           time="0,000">
+           skipped="0"
+           time="46,260">
   <properties />
   
-            <testcase name="tearDown" time="0.0" classname="tests.SpamTest">
-          <skipped />
-    </testcase>
   
-  
+            <testcase name="checkLettersInSpamFolder" time="46,260" classname="tests.SpamTest" />
+      
 </testsuite>

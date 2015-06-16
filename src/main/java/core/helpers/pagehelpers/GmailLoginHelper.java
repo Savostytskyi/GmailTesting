@@ -14,21 +14,13 @@ public class GmailLoginHelper {
         this.driver = driver;
     }
 
-    public GmailInboxHelper loginToGmail(GmailLoginPage loginPage, String user) throws InterruptedException {
+    public GmailInboxHelper loginToGmail(GmailLoginPage loginPage, String user) {
+        if (isElementPresent(By.xpath(loginPage.ACCOUNT_CHOOSER), driver))
+            loginPage.getChooseButton().click();
         if (isElementPresent(By.xpath(loginPage.ADD_ACCOUNT), driver))
             loginPage.getAddButton().click();
         waitForElementIsClickable(loginPage.getNextButton().getWrappedElement(), driver);
         loginPage.loginAsUser(user);
         return new GmailInboxHelper(driver);
-    }
-
-    public GmailLoginHelper addOneMoreAccount(GmailLoginPage loginPage) {
-        loginPage.addAccountInMail();
-        return new GmailLoginHelper(driver);
-    }
-
-    public GmailLoginHelper fastAddAnAccount(GmailLoginPage loginPage) {
-        loginPage.getAddButton().click();
-        return new GmailLoginHelper(driver);
     }
 }

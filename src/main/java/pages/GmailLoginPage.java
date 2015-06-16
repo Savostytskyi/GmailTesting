@@ -8,8 +8,9 @@ import ru.yandex.qatools.htmlelements.element.Button;
 import ru.yandex.qatools.htmlelements.element.HtmlElement;
 import ru.yandex.qatools.htmlelements.element.TextInput;
 import ru.yandex.qatools.htmlelements.loader.decorator.HtmlElementDecorator;
-
+import static core.helpers.generalhelpers.WaitHelper.waitForElementLocated;
 import static core.property.PropertyReader.getProperty;
+import static org.openqa.selenium.By.xpath;
 
 public class GmailLoginPage extends HtmlElement {
 
@@ -83,15 +84,8 @@ public class GmailLoginPage extends HtmlElement {
         getLoginField().clear();
         getLoginField().sendKeys(getProperty(user + ".login"));
         getNextButton().click();
-        getPasswordField().clear();
+        waitForElementLocated(xpath(PASSWORD_INPUT_FIELD), driver);
         getPasswordField().sendKeys(getProperty(user + ".pass"));
         getSigninButton().click();
     }
-
-    public void addAccountInMail() {
-        getChooseButton().click();
-        getAddButton().click();
-    }
-
-
 }

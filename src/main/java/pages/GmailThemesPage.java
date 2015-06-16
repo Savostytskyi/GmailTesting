@@ -6,17 +6,19 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import ru.yandex.qatools.htmlelements.element.Link;
 import ru.yandex.qatools.htmlelements.loader.decorator.HtmlElementDecorator;
-
 import java.util.List;
 
 /**
- * Created by Anton_Savostytskyi on 15.06.2015.
+ * @author Anton_Savostytskyi
+ * created on 15.06.2015.
+ *
  */
+
 public class GmailThemesPage {
 
     private WebDriver driver;
 
-    public final String THEMES_LIST = "//tr[position()=2 or position()=4]//input[@name]/following-sibling::div[1]";
+    public final String THEMES_LIST = "//tr[position()=2]//input[@name]/following-sibling::div[1]";
     public final By THEME_CHENGED_MESSAGE = By.xpath("//div[@role='alert']/div/div[2]");
     public final By NAVIGATE_MENU = By.xpath("(//a[@role='tab'])[1]");
 

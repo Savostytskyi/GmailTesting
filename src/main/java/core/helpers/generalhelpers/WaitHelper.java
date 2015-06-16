@@ -2,6 +2,7 @@ package core.helpers.generalhelpers;
 
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.*;
+import org.testng.Reporter;
 
 import java.util.concurrent.TimeUnit;
 
@@ -31,11 +32,6 @@ public class WaitHelper {
         wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(locator));
     }
 
-    public static void alertWaiter(WebDriver driver){
-        Alert alert = (new WebDriverWait(driver, 10))
-                .until(ExpectedConditions.alertIsPresent());
-    }
-
     public static void waitForPageLoad(WebDriver driver) {
         ExpectedCondition<Boolean> pageLoadCondition = new
                 ExpectedCondition<Boolean>() {
@@ -45,6 +41,23 @@ public class WaitHelper {
                 };
         WebDriverWait wait = new WebDriverWait(driver, 30);
         wait.until(pageLoadCondition);
+    }
+
+    public static void waitForElementNotVisible(By locator, WebDriver driver) {
+        delay(1000);
+        Wait wait = new FluentWait(driver)
+                .pollingEvery(2, TimeUnit.SECONDS)
+                .withTimeout(25, TimeUnit.SECONDS)
+                .ignoring(WebDriverException.class);
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(locator));
+    }
+
+    public static void delay(int sec) {
+        try {
+            Thread.sleep(sec);
+        } catch (InterruptedException e) {
+            Reporter.log("Interrupted Exception!");
+        }
     }
 }
 

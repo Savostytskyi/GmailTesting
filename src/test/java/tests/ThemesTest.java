@@ -36,7 +36,7 @@ public class ThemesTest extends BaseTest {
     }
 
     @AfterMethod
-    public void goBack() throws InterruptedException {
+    public void goBack(){
         inboxHelper.logOutFromMail(inboxPage);
     }
 }

@@ -25,14 +25,13 @@ public class StarredTest extends BaseTest {
                 .loginToGmail(loginPage, "user-first")
                 .createAndSendNewLetter(inboxPage, "letter-first")
                 .logOutFromMail(inboxPage)
-                .addOneMoreAccount(loginPage)
                 .loginToGmail(loginPage, "user-second")
                 .dragLetterToStarred(inboxPage, "letter-first")
                 .checkThatLetterPresentInStarred(inboxPage, "letter-first");
     }
 
     @AfterMethod
-    public void goBack() throws InterruptedException {
+    public void goBack() {
         inboxHelper.logOutFromMail(inboxPage);
     }
 }
