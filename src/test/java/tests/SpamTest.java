@@ -4,6 +4,7 @@ import base.BaseTest;
 import core.helpers.pagehelpers.GmailLoginHelper;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
 import pages.GmailInboxPage;
 import pages.GmailLoginPage;
 
@@ -16,7 +17,7 @@ public class SpamTest extends BaseTest {
         loginHelper = new GmailLoginHelper(driver);
     }
 
-/*    @Test(description = "Check that the letters sent to the spam. Subtask #1")
+    @Test(description = "Check that the letters sent to the spam. Subtask #1")
     public void checkLettersInSpamFolder() throws InterruptedException {
         loginHelper
                 .loginToGmail(loginPage, "user-first")
@@ -26,7 +27,7 @@ public class SpamTest extends BaseTest {
                 .loginToGmail(loginPage, "user-second")
                 .markLetterAsASpam(inboxPage, "letter-first")
                 .logOutFromMail(inboxPage);
-    }*/
+    }
 
     @AfterMethod
     public void goBack() throws InterruptedException {

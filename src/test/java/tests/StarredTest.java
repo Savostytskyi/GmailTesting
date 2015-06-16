@@ -34,6 +34,5 @@ public class StarredTest extends BaseTest {
     @AfterMethod
     public void goBack() throws InterruptedException {
         inboxHelper.logOutFromMail(inboxPage);
-        loginHelper.addAccount(loginPage);
     }
 }

@@ -17,7 +17,9 @@ import ru.yandex.qatools.htmlelements.loader.decorator.HtmlElementDecorator;
 import static core.helpers.generalhelpers.VerifyHelper.isElementPresent;
 import static core.helpers.generalhelpers.WaitHelper.alertWaiter;
 import static core.helpers.generalhelpers.WaitHelper.waitForElementLocated;
+import static core.helpers.generalhelpers.WaitHelper.waitForPageLoad;
 import static core.property.PropertyReader.getProperty;
+import static org.openqa.selenium.By.xpath;
 
 public class GmailInboxPage {
 
@@ -29,8 +31,7 @@ public class GmailInboxPage {
     public final String TO_SPAM_BUTTON = "(//div[2]/div[1]/div/div[2]/div[2]/div/div)[1]";
     public final String STARRED_LINK = "(//div[@id]/div/div[1]/span/a)[2]";
     public final String SUSPECIOUS_LETTER_BUTTON = "//div[3]/button[1]";
-   // public final String CHANGE_THEME_BUTTON = "(//span[@role='checkbox']/following-sibling::div)[5]";
-   public final String CHANGE_THEME_BUTTON = "//span[text()='Выберите тему']";
+    public final String CHANGE_THEME_BUTTON = "//span[text()='Выберите тему']";
 
     private LetterComponent letterComponent;
 
@@ -96,8 +97,15 @@ public class GmailInboxPage {
     }
 
     public void createNewLetter(String letter) {
+        waitForPageLoad(driver);
         getNewLetterButton().click();
         letterComponent.fillInField(letter);
+    }
+
+    public void createNewFileLetter(String letter) {
+        waitForPageLoad(driver);
+        getNewLetterButton().click();
+        letterComponent.fillInFieldsAndFile(letter);
     }
 
     public void goToThemes() {
@@ -120,27 +128,27 @@ public class GmailInboxPage {
     }
 
     public void findLetterWithCorrespondingTopic(String letter){
-        waitForElementLocated(By.xpath("//span/b[text()='" + getProperty(letter + ".subject") + "']"), driver);
-        driver.findElement(By.xpath("//span/b[text()='"+ getProperty(letter + ".subject")+"']")).click();
+        waitForElementLocated(xpath("//span/b[text()='" + getProperty(letter + ".subject") + "']"), driver);
+        driver.findElement(xpath("//span/b[text()='" + getProperty(letter + ".subject") + "']")).click();
     }
 
     public void dragLetterWithCorrespondingTopic(String letter) {
-        WebElement element = driver.findElement(By.xpath("//span/b[text()='" + getProperty(letter + ".subject") + "']"));
+        WebElement element = driver.findElement(xpath("//span/b[text()='" + getProperty(letter + ".subject") + "']"));
         (new Actions(driver)).dragAndDrop(element, getStarredLink().getWrappedElement()).perform();
     }
 
     public By findLetterInStarred (String letter) {
         getStarredLink().click();
-        return By.xpath("//span/b[text()='" + getProperty(letter + ".subject") + "']");
+        return xpath("//span/b[text()='" + getProperty(letter + ".subject") + "']");
     }
 
     public void markLetter() {
-        WaitHelper.waitForElementLocated(By.xpath(TO_SPAM_BUTTON), driver);
+        waitForElementLocated(xpath(TO_SPAM_BUTTON), driver);
         getToSpamButton().click();
     }
 
     public void suspeciousButtonHendler () {
-        if(isElementPresent(By.xpath(SUSPECIOUS_LETTER_BUTTON), driver)) {
+        if(isElementPresent(xpath(SUSPECIOUS_LETTER_BUTTON), driver)) {
             getSuspiciousButton().click();
         }
     }

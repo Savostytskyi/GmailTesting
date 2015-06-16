@@ -1,8 +1,9 @@
 package core.helpers.pagehelpers;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import pages.GmailLoginPage;
-
+import static core.helpers.generalhelpers.VerifyHelper.isElementPresent;
 import static core.helpers.generalhelpers.WaitHelper.waitForElementIsClickable;
 
 public class GmailLoginHelper {
@@ -14,6 +15,8 @@ public class GmailLoginHelper {
     }
 
     public GmailInboxHelper loginToGmail(GmailLoginPage loginPage, String user) throws InterruptedException {
+        if (isElementPresent(By.xpath(loginPage.ADD_ACCOUNT), driver))
+            loginPage.getAddButton().click();
         waitForElementIsClickable(loginPage.getNextButton().getWrappedElement(), driver);
         loginPage.loginAsUser(user);
         return new GmailInboxHelper(driver);
@@ -25,11 +28,6 @@ public class GmailLoginHelper {
     }
 
     public GmailLoginHelper fastAddAnAccount(GmailLoginPage loginPage) {
-        loginPage.getAddButton().click();
-        return new GmailLoginHelper(driver);
-    }
-
-    public GmailLoginHelper addAccount(GmailLoginPage loginPage){
         loginPage.getAddButton().click();
         return new GmailLoginHelper(driver);
     }

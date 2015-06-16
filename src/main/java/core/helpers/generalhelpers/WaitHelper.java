@@ -1,10 +1,7 @@
 package core.helpers.generalhelpers;
 
 import org.openqa.selenium.*;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.FluentWait;
-import org.openqa.selenium.support.ui.Wait;
-import org.openqa.selenium.support.ui.WebDriverWait;
+import org.openqa.selenium.support.ui.*;
 
 import java.util.concurrent.TimeUnit;
 
@@ -37,6 +34,17 @@ public class WaitHelper {
     public static void alertWaiter(WebDriver driver){
         Alert alert = (new WebDriverWait(driver, 10))
                 .until(ExpectedConditions.alertIsPresent());
+    }
+
+    public static void waitForPageLoad(WebDriver driver) {
+        ExpectedCondition<Boolean> pageLoadCondition = new
+                ExpectedCondition<Boolean>() {
+                    public Boolean apply(WebDriver driver) {
+                        return ((JavascriptExecutor)driver).executeScript("return document.readyState").equals("complete");
+                    }
+                };
+        WebDriverWait wait = new WebDriverWait(driver, 30);
+        wait.until(pageLoadCondition);
     }
 }
 
