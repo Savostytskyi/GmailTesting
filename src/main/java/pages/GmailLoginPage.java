@@ -1,11 +1,13 @@
 package pages;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import ru.yandex.qatools.htmlelements.annotations.Name;
 import ru.yandex.qatools.htmlelements.element.Button;
 import ru.yandex.qatools.htmlelements.element.HtmlElement;
+import ru.yandex.qatools.htmlelements.element.Link;
 import ru.yandex.qatools.htmlelements.element.TextInput;
 import ru.yandex.qatools.htmlelements.loader.decorator.HtmlElementDecorator;
 import static core.helpers.generalhelpers.WaitHelper.waitForElementLocated;
@@ -22,6 +24,7 @@ public class GmailLoginPage extends HtmlElement {
     public final String SIGNIN_BUTTON = "//input[@id='signIn']";
     public final String ACCOUNT_CHOOSER = "//a[@id='account-chooser-link']";
     public final String ADD_ACCOUNT = "//a[@id='account-chooser-add-account']";
+    public final String LINK_SIGNIN_DIFFERENT = "//span[@id='link-signin-different']/a";
 
     public GmailLoginPage(WebDriver driver) {
         this.driver = driver;
@@ -78,6 +81,14 @@ public class GmailLoginPage extends HtmlElement {
 
     public Button getAddButton() {
         return addButton;
+    }
+
+    @Name("Link sign in other account")
+    @FindBy(xpath = LINK_SIGNIN_DIFFERENT)
+    private Link diffButton;
+
+    public Link getDiffButton() {
+        return diffButton;
     }
 
     public void loginAsUser(String user) {
