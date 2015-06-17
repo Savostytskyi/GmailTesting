@@ -29,6 +29,9 @@ public class GmailInboxHelper {
     }
 
     public GmailInboxHelper skipAllSettingsWindows(GmailInboxPage inboxPage) {
+      /*  if (isElementPresent(By.xpath(inboxPage.CANCEL_BUTTON), driver))
+            inboxPage.getCancelButton().click();*/
+        delay(2000);
         actionExecutor();
         return new GmailInboxHelper(driver);
     }
