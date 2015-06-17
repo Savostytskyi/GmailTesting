@@ -168,7 +168,7 @@ public class GmailInboxPage {
     }
 
     public By findFileInLetter(String letter) {
-        return xpath("//span[contains(text(), '"+getProperty(letter + ".file").replaceAll("/","")+"')]");
+        return xpath("//span[contains(text(), '"+getProperty(letter + ".file")+"')]");
     }
 
     public void markLetter() {

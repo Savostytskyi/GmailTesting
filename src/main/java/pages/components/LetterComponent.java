@@ -5,7 +5,7 @@ import ru.yandex.qatools.htmlelements.annotations.Name;
 import ru.yandex.qatools.htmlelements.element.Button;
 import ru.yandex.qatools.htmlelements.element.HtmlElement;
 import ru.yandex.qatools.htmlelements.element.TextInput;
-import static core.handlers.FileHendler.filePathHandling;
+import static core.handlers.FilePathHandler.filePathHandling;
 import static core.property.PropertyReader.getProperty;
 
 @Name("Form for creation new letter")
