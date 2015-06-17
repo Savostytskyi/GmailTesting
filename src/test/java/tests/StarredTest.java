@@ -20,7 +20,7 @@ public class StarredTest extends BaseTest {
     }
 
     @Test(description = "Check that the letters adding to starred folder after drag it. Subtask #2")
-    public void checkLettersInSpamFolder() throws InterruptedException{
+    public void checkLettersDragToStarred() {
         loginHelper
                 .loginToGmail(loginPage, "user-first")
                 .createAndSendNewLetter(inboxPage, "letter-first")

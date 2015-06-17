@@ -20,7 +20,7 @@ public class SpamTest extends BaseTest {
     }
 
     @Test(description = "Check that the letters sent to the spam. Subtask #1")
-    public void checkLettersInSpamFolder() throws InterruptedException {
+    public void checkLettersInSpamFolder() {
         loginHelper
                 .loginToGmail(loginPage, "user-second")
                 .skipAllSettingsWindows(inboxPage)

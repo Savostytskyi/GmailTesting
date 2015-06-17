@@ -23,7 +23,7 @@ public class FileSenderTest extends BaseTest {
     }
 
     @Test(description = "Check that that letter can be send with file. Subtask #3")
-    public void checkLettersWithFile() {
+    public void checkLettersContainsFile() {
         loginHelper
                 .loginToGmail(loginPage, "user-first")
                 .skipAllSettingsWindows(inboxPage)

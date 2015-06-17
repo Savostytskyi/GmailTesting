@@ -27,8 +27,7 @@ public class ThemesTest extends BaseTest {
     }
 
     @Test(description = "Check that the background theme setting up. Subtask #4")
-    public void checkLettersInSpamFolder() throws InterruptedException{
-
+    public void checkThatThemeSetUp() {
         loginHelper
                 .loginToGmail(loginPage, "user-first")
                 .navigateToThemesPage(inboxPage)

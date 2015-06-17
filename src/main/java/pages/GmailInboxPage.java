@@ -11,10 +11,13 @@ import ru.yandex.qatools.htmlelements.annotations.Name;
 import ru.yandex.qatools.htmlelements.element.Button;
 import ru.yandex.qatools.htmlelements.element.Link;
 import ru.yandex.qatools.htmlelements.loader.decorator.HtmlElementDecorator;
-
 import static core.helpers.generalhelpers.WaitHelper.*;
 import static core.property.PropertyReader.getProperty;
 import static org.openqa.selenium.By.xpath;
+
+/**
+ * @author Anton_Savostytskyi on 15.06.2015.
+ */
 
 public class GmailInboxPage {
 
@@ -31,7 +34,7 @@ public class GmailInboxPage {
     public final By LETTER_SENT_MESSAGE = xpath("//span[@id='link_vsm']");
     public final By PROGRESS_BAR = xpath("//div[@role='progressbar']");
     public final String CANCEL_BUTTON = "//button[@name='cancel']";
-    public final String SPAM_CONFIRM_BUTTON ="//button/following-sibling::button";
+    public final String SPAM_CONFIRM_BUTTON = "//button/following-sibling::button";
 
     private LetterComponent letterComponent;
 
@@ -143,17 +146,17 @@ public class GmailInboxPage {
         getThemesButton().click();
     }
 
-    public void logOutFromMail(){
+    public void logOutFromMail() {
         getPopupMenu().click();
         getExitButton().click();
     }
 
-    public void findLetterWithCorrespondingTopic(String letter){
+    public void findLetterWithCorrespondingTopic(String letter) {
         waitForElementLocated(xpath("//span/b[text()='" + getProperty(letter + ".subject") + "']"), driver);
         driver.findElement(xpath("//span/b[text()='" + getProperty(letter + ".subject") + "']")).click();
     }
 
-    public By findLetterInSpamFolder(String letter){
+    public By findLetterInSpamFolder(String letter) {
         return xpath("//span[text()='" + getProperty(letter + ".subject") + "']");
     }
 
@@ -162,13 +165,13 @@ public class GmailInboxPage {
         (new Actions(driver)).dragAndDrop(element, getStarredLink().getWrappedElement()).perform();
     }
 
-    public By findLetterInStarred (String letter) {
+    public By findLetterInStarred(String letter) {
         getStarredLink().click();
         return xpath("//span/b[text()='" + getProperty(letter + ".subject") + "']");
     }
 
     public By findFileInLetter(String letter) {
-        return xpath("//span[contains(text(), '"+getProperty(letter + ".file")+"')]");
+        return xpath("//span[contains(text(), '" + getProperty(letter + ".file") + "')]");
     }
 
     public void markLetter() {

@@ -9,9 +9,7 @@ import ru.yandex.qatools.htmlelements.loader.decorator.HtmlElementDecorator;
 import java.util.List;
 
 /**
- * @author Anton_Savostytskyi
- * created on 15.06.2015.
- *
+ * @author Anton_Savostytskyi on 15.06.2015.
  */
 
 public class GmailThemesPage {

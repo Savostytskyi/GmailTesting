@@ -28,8 +28,7 @@ public class ReportCustomizer {
         System.setProperty("org.uncommons.reportng.escape-output", "false");
         if (!result.isSuccess()) {
             try {
-                String failureImageFileName = "sample1"+".png";
-                String failureImageFileName1;
+                String failureImageFileName = "fail"+".png";
                 File scrFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
                 FileUtils.copyFile(scrFile, new File(failureImageFileName));
                 getInfo(result);

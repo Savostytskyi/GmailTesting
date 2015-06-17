@@ -6,6 +6,13 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
+/**
+ * The type File path handler.
+ * @author Anton_Savostytskyi on 16.06.2015.
+ *         Class PropertyReader responsible for getting properies
+ *         from "gmail.properties" file.
+ */
+
 public class PropertyReader {
 
     public static final String TEST_PROPERTY_FILE = "gmail.properties";

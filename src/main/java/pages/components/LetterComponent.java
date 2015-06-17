@@ -5,11 +5,16 @@ import ru.yandex.qatools.htmlelements.annotations.Name;
 import ru.yandex.qatools.htmlelements.element.Button;
 import ru.yandex.qatools.htmlelements.element.HtmlElement;
 import ru.yandex.qatools.htmlelements.element.TextInput;
+
 import static core.handlers.FilePathHandler.filePathHandling;
 import static core.property.PropertyReader.getProperty;
 
+/**
+ * @author Anton_Savostytskyi on 15.06.2015.
+ */
+
 @Name("Form for creation new letter")
-@FindBy(xpath="//div")
+@FindBy(xpath = "//div")
 public class LetterComponent extends HtmlElement {
     @Name("Recipient input field")
     @FindBy(xpath = "(//div/input/following-sibling::textarea)[1]")
@@ -65,7 +70,7 @@ public class LetterComponent extends HtmlElement {
         filePathHandling(letter);
     }
 
-    public void performActions(){
+    public void performActions() {
         getSendButton().click();
     }
 }

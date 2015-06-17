@@ -7,6 +7,11 @@ import pages.GmailLoginPage;
 import static core.helpers.generalhelpers.VerifyHelper.isElementPresent;
 import static core.helpers.generalhelpers.WaitHelper.waitForElementIsClickable;
 
+/**
+ * @author Anton_Savostytskyi on 13.06.2015.
+ *         Helper for login page
+ */
+
 public class GmailLoginHelper {
 
     private WebDriver driver;

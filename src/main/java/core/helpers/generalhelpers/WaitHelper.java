@@ -6,20 +6,26 @@ import org.testng.Reporter;
 
 import java.util.concurrent.TimeUnit;
 
+/**
+ * @author Anton_Savostytskyi on 13.06.2015.
+ *         Class WaitHelper responsible for waiting conditions of
+ *         web element on the web page
+ */
+
 public class WaitHelper {
 
     public static void waitForElementIsClickable(WebElement webElement, WebDriver driver) {
         Wait wait = new FluentWait(driver)
                 .pollingEvery(2, TimeUnit.SECONDS)
-                .withTimeout(25,TimeUnit.SECONDS)
+                .withTimeout(25, TimeUnit.SECONDS)
                 .ignoring(WebDriverException.class);
-       wait.until(ExpectedConditions.elementToBeClickable(webElement));
-   }
+        wait.until(ExpectedConditions.elementToBeClickable(webElement));
+    }
 
     public static void waitForElementIsVisible(WebElement webElement, WebDriver driver) {
         Wait wait = new FluentWait(driver)
                 .pollingEvery(2, TimeUnit.SECONDS)
-                .withTimeout(25,TimeUnit.SECONDS)
+                .withTimeout(25, TimeUnit.SECONDS)
                 .ignoring(WebDriverException.class);
         wait.until(ExpectedConditions.visibilityOf(webElement));
     }
@@ -27,7 +33,7 @@ public class WaitHelper {
     public static void waitForElementLocated(By locator, WebDriver driver) {
         Wait wait = new FluentWait(driver)
                 .pollingEvery(2, TimeUnit.SECONDS)
-                .withTimeout(25,TimeUnit.SECONDS)
+                .withTimeout(25, TimeUnit.SECONDS)
                 .ignoring(WebDriverException.class);
         wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(locator));
     }
@@ -36,7 +42,7 @@ public class WaitHelper {
         ExpectedCondition<Boolean> pageLoadCondition = new
                 ExpectedCondition<Boolean>() {
                     public Boolean apply(WebDriver driver) {
-                        return ((JavascriptExecutor)driver).executeScript("return document.readyState").equals("complete");
+                        return ((JavascriptExecutor) driver).executeScript("return document.readyState").equals("complete");
                     }
                 };
         WebDriverWait wait = new WebDriverWait(driver, 30);
