@@ -4,10 +4,10 @@
            failures="0"
            errors="0"
            skipped="0"
-           time="45,598">
+           time="47,074">
   <properties />
   
   
-            <testcase name="checkLettersInSpamFolder" time="45,598" classname="tests.SpamTest" />
+            <testcase name="checkLettersInSpamFolder" time="47,074" classname="tests.SpamTest" />
       
 </testsuite>

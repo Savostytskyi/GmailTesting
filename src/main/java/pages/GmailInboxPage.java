@@ -33,7 +33,6 @@ public class GmailInboxPage {
     public final String CHANGE_THEME_BUTTON = "//span[text()='Выберите тему']";
     public final By LETTER_SENT_MESSAGE = xpath("//span[@id='link_vsm']");
     public final By PROGRESS_BAR = xpath("//div[@role='progressbar']");
-    public final String CANCEL_BUTTON = "//button[@name='cancel']";
     public final String SPAM_CONFIRM_BUTTON = "//button/following-sibling::button";
 
     private LetterComponent letterComponent;
@@ -46,10 +45,6 @@ public class GmailInboxPage {
     public WebDriver getDriver() {
         return driver;
     }
-
-    @Name("Skip window button")
-    @FindBy(xpath = CANCEL_BUTTON)
-    private Button cancelButton;
 
     @Name("Span confirm button")
     @FindBy(xpath = SPAM_CONFIRM_BUTTON)
@@ -87,9 +82,7 @@ public class GmailInboxPage {
     @FindBy(xpath = SPAM_FOLDER)
     private Link spamFolderButton;
 
-    public Button getCancelButton() {
-        return cancelButton;
-    }
+
 
     public Button getPopupMenu() {
         return popupMenu;
